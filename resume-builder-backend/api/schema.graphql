@@ -1,0 +1,24 @@
+//go:generate go run github.com/99designs/gqlgen generate
+
+# api/schema.graphql
+
+scalar Upload
+
+type Resume {
+  id: Int!
+  name: String!
+  description: String
+  fileUrl: String!
+  createdAt: Time!
+  updatedAt: Time!
+}
+
+type Query {
+  listResumes(userId: Int!): [Resume!]!
+}
+
+type Mutation {
+  uploadResume(name: String!, description: String, file: Upload!): Resume!
+}
+
+scalar Time

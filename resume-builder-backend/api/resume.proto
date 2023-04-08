@@ -1,0 +1,41 @@
+// api/resume.proto
+
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+package resume;
+
+option go_package = "github.com/vinaykhade/resume-builder-backend/api/resume";
+
+service ResumeService {
+  rpc UploadResume(ResumeRequest) returns (ResumeResponse) {}
+  rpc ListResumes(ListRequest) returns (ListResponse) {}
+}
+
+message ResumeRequest {
+  string name = 1;
+  string description = 2;
+  bytes file = 3;
+}
+
+message ResumeResponse {
+  int32 id = 1;
+}
+
+message ListRequest {
+  int32 user_id = 1;
+}
+
+message ListResponse {
+  repeated ResumeItem items = 1;
+}
+
+message ResumeItem {
+  int32 id = 1;
+  string name = 2;
+  string description = 3;
+  string file_url = 4;
+  google.protobuf.Timestamp created_at = 5;
+  google.protobuf.Timestamp updated_at = 6;
+}
